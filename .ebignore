@@ -1,0 +1,10 @@
+.git/
+.gitignore
+.elasticbeanstalk/
+.DS_Store
+*.pyc
+*.sqlite3
+venv/
+node_modules/ # if you use npm/node
+__pycache__/
+# Any other local development files you don't want deployed

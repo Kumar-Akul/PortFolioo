@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 import os # added for STATICFILES_DIRS
 from pathlib import Path
+from decouple import config # NEW: To read environment variables
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,12 +22,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-0wz^759l)5ja5!%=^vn7b#uqx6s2$@eayr1mj7by1t8di7p5+%'
+# SECRET_KEY = 'django-insecure-0wz^759l)5ja5!%=^vn7b#uqx6s2$@eayr1mj7by1t8di7p5+%' # OLD
+SECRET_KEY = config('DJANGO_SECRET_KEY', default='a-fallback-secret-key-for-local-dev-only') # NEW
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', '.elasticbeanstalk.com'] # NEW: Add your EB URL suffix
+# If you add a custom domain later (e.g., myportfolio.com), add it here:
+# ALLOWED_HOSTS = ['127.0.0.1', '.elasticbeanstalk.com', 'myportfolio.com', 'www.myportfolio.com']
 
 
 # Application definition
@@ -39,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'portfolio',  # added for portfolio app
+    'storages', # NEW: Add django-storages
 ]
 
 MIDDLEWARE = [
@@ -128,3 +133,41 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# AWS S3 Settings (for Static Files)
+AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID') # NEW
+AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY') # NEW
+AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME') # NEW
+AWS_S3_REGION_NAME = 'eu-west-2' # IMPORTANT: Change to your desired AWS region (e.g., 'us-east-1', 'ap-south-1')
+AWS_S3_SIGNATURE_VERSION = 's3v4' # Recommended for most regions
+
+AWS_S3_FILE_OVERWRITE = False # Don't overwrite files with the same name
+AWS_DEFAULT_ACL = None # No default ACL, relying on bucket policies
+AWS_S3_VERIFY = True # Verify SSL certificates
+
+AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}.amazonaws.com' # NEW: Construct S3 URL
+# Or, if you configure CloudFront later:
+# AWS_S3_CUSTOM_DOMAIN = 'your-cloudfront-domain.cloudfront.net'
+
+STATICFILES_LOCATION = 'static' # Folder name in S3 bucket for static files
+MEDIAFILES_LOCATION = 'media'   # Folder name in S3 bucket for media files
+
+STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATICFILES_LOCATION}/' # NEW
+MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}/'   # NEW
+
+# Configure django-storages for static and media files
+STATICFILES_STORAGE = 'portfo.storages.StaticStorage' # NEW: Points to custom storage class
+DEFAULT_FILE_STORAGE = 'portfo.storages.MediaStorage'  # NEW: Points to custom storage class
+
+# If you have local static files that are NOT in a specific app's 'static' folder, but
+# in a project-level 'static' folder:
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+
+# For development, you might still want to serve static locally.
+# You can use an if DEBUG: block, but for deployment, keep it simple.
+# if not DEBUG:
+#     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+#     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
