@@ -5,6 +5,7 @@
 *.pyc
 *.sqlite3
 venv/
+staticfiles/
 node_modules/ # if you use npm/node
 __pycache__/
 # Any other local development files you don't want deployed
