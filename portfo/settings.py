@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('DJANGO_SECRET_KEY', default='a-fallback-secret-key-for-local-dev-only')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False # Set to True for local development, False for production
+DEBUG = True # Set to True for local development, False for production
 
 ALLOWED_HOSTS = [
     '127.0.0.1',

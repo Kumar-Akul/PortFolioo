@@ -1,33 +1,13 @@
-# Git & Version Control
+# Correct .ebignore (ensure requirements.txt is NOT listed here)
 .git/
 .gitignore
-
-# Compiled Python Files
 *.pyc
 __pycache__/
-
-# Virtual Environment
 venv/
-env/ # Common alternative virtual env name
-
-# Database (local only)
+env/
 *.sqlite3
-
-# Node.js (if you decide to integrate frontend build tools later)
 node_modules/
-
-# Local Static Files (generated locally by collectstatic)
 staticfiles/
-
-# Source Sass files (only needed for local compilation, not deployment)
 frontend_src/
-
-# IDE / Editor specific files
-.idea/
-.vscode/
-.DS_Store
-Thumbs.db
-
-# Any other local development files you don't want deployed
 *.log
-.env # Your local .env file should NOT be deployed to EB, EB has its own env vars
+.env
