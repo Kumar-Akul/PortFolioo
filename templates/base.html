@@ -1,0 +1,119 @@
+{% load static %} {# This line is crucial for using the staticfiles tag #}
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>{% block title %}Massively by HTML5 UP{% endblock title %}</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		{# CSS Links: Ensure these paths match where you place the files in your static directory #}
+		<link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
+		<noscript><link rel="stylesheet" href="{% static 'assets/css/noscript.css' %}" /></noscript>
+        {# Add any additional head content or specific CSS blocks here if needed #}
+        {% block extra_head %}{% endblock extra_head %}
+	</head>
+	<body class="is-preload">
+
+		<div id="wrapper">
+
+				<header id="header">
+						{# Update href to use Django's url tag for your home page #}
+						<a href="{% url 'home' %}" class="logo">Massively</a>
+					</header>
+
+				<nav id="nav">
+						<ul class="links">
+							{# Update hrefs to use Django's url tags. The 'active' class logic helps highlight the current page. #}
+							<li {% if request.resolver_match.url_name == 'home' %}class="active"{% endif %}><a href="{% url 'home' %}">This is Massively</a></li>
+							<li {% if request.resolver_match.url_name == 'generic_page' %}class="active"{% endif %}><a href="{% url 'generic_page' %}">Generic Page</a></li>
+							<li {% if request.resolver_match.url_name == 'elements_reference' %}class="active"{% endif %}><a href="{% url 'elements_reference' %}">Elements Reference</a></li>
+						</ul>
+						<ul class="icons">
+							{# These are external links, keep them as is or update with your actual social media profiles #}
+							<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+							<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+							<li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				{# The original template has an outer #wrapper and an inner #main div, and a repeated #footer. #}
+				{# We've moved the #main div here, and the inner content of each specific HTML file will go into the 'content' block. #}
+				{# The common footer is placed outside the main content block, so it applies to all pages #}
+					{% block content %}
+					{# Default content or instructions can go here. This block will be overridden by child templates. #}
+					{% endblock content %}
+
+				<footer id="footer">
+						<section>
+							{# Convert this form to a Django form later if needed, for now keep structure #}
+							<form method="post" action="#">
+                                {# CRITICAL: For Django forms, you MUST include the csrf_token #}
+                                {% csrf_token %}
+								<div class="fields">
+									<div class="field">
+										<label for="name">Name</label>
+										<input type="text" name="name" id="name" />
+									</div>
+									<div class="field">
+										<label for="email">Email</label>
+										<input type="text" name="email" id="email" />
+									</div>
+									<div class="field">
+										<label for="message">Message</label>
+										<textarea name="message" id="message" rows="3"></textarea>
+									</div>
+								</div>
+								<ul class="actions">
+									<li><input type="submit" value="Send Message" /></li>
+								</ul>
+							</form>
+						</section>
+						<section class="split contact">
+							<section class="alt">
+								<h3>Address</h3>
+								<p>1234 Somewhere Road #87257<br />
+								Nashville, TN 00000-0000</p>
+							</section>
+							<section>
+								<h3>Phone</h3>
+								<p><a href="#">(000) 000-0000</a></p>
+							</section>
+							<section>
+								<h3>Email</h3>
+								<p><a href="#">info@untitled.tld</a></p>
+							</section>
+							<section>
+								<h3>Social</h3>
+								<ul class="icons alt">
+									<li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>
+									<li><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
+									<li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
+									<li><a href="#" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+								</ul>
+							</section>
+						</section>
+					</footer>
+
+				<div id="copyright">
+						<ul><li>&copy; Untitled</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li></ul>
+					</div>
+
+			</div> {# Close the main #wrapper div #}
+
+		{# Django static tag for all JS files. Ensure these paths match your static/assets/js/ folder. #}
+			<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+			<script src="{% static 'assets/js/jquery.scrollex.min.js' %}"></script>
+			<script src="{% static 'assets/js/jquery.scrolly.min.js' %}"></script>
+			<script src="{% static 'assets/js/browser.min.js' %}"></script>
+			<script src="{% static 'assets/js/breakpoints.min.js' %}"></script>
+			<script src="{% static 'assets/js/util.js' %}"></script>
+			<script src="{% static 'assets/js/main.js' %}"></script>
+            {# Add any additional scripts specific to child templates if needed #}
+            {% block extra_scripts %}{% endblock extra_scripts %}
+
+	</body>
+</html>
+{# End of base.html #}
+{# This base template is designed to be extended by other templates like index.html and generic.html
+   It includes the necessary static files, a header, navigation, footer, and blocks for title and content.
+   The child templates will override these blocks to provide specific content for each page. #}

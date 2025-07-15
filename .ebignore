@@ -1,11 +1,33 @@
+# Git & Version Control
 .git/
 .gitignore
-.elasticbeanstalk/
-.DS_Store
+
+# Compiled Python Files
 *.pyc
-*.sqlite3
-venv/
-staticfiles/
-node_modules/ # if you use npm/node
 __pycache__/
+
+# Virtual Environment
+venv/
+env/ # Common alternative virtual env name
+
+# Database (local only)
+*.sqlite3
+
+# Node.js (if you decide to integrate frontend build tools later)
+node_modules/
+
+# Local Static Files (generated locally by collectstatic)
+staticfiles/
+
+# Source Sass files (only needed for local compilation, not deployment)
+frontend_src/
+
+# IDE / Editor specific files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
 # Any other local development files you don't want deployed
+*.log
+.env # Your local .env file should NOT be deployed to EB, EB has its own env vars

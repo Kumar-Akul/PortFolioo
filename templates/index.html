@@ -1,30 +1,127 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Portfolio</title>
-</head>
-<body>
-    <header>
-        <h1>Welcome to My Portfolio</h1>
-    </header>
-    <main>
-        <section>
-            <h2>About Me</h2>
-            <p>This is the about me section.</p>
-        </section>
-        <section>
-            <h2>Projects</h2>
-            <p>This is the projects section.</p>
-        </section>
-        <section>
-            <h2>Contact</h2>
-            <p>This is the contact section.</p>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 My Portfolio</p>
-    </footer>
-</body>
-</html>
+{% extends 'base.html' %}
+{% load static %} {# Load static here if you have specific static assets only used on this page #}
+
+{% block title %}Akul Kumar - Portfolio{% endblock title %}
+
+{% block content %}
+    <div id="wrapper" class="fade-in"> {# This wrapper div is specific to index.html and needs to be inside the content block #}
+
+        <div id="intro">
+                <h1>This is<br />
+                Massively</h1> {# Customize this: e.g., "Hi, I'm Akul Kumar!" #}
+                <p>A free, fully responsive HTML5 + CSS3 site template designed by <a href="https://twitter.com/ajlkn">@ajlkn</a> for <a href="https://html5up.net">HTML5 UP</a><br />
+                and released for free under the <a href="https://html5up.net/license">Creative Commons license</a>.</p> {# Customize this with your intro/tagline #}
+                <ul class="actions">
+                    <li><a href="#header" class="button icon solid solo fa-arrow-down scrolly">Continue</a></li>
+                </ul>
+            </div>
+
+        <div id="main">
+
+                <article class="post featured">
+                        <header class="major">
+                            <span class="date">April 25, 2017</span> {# You can make this dynamic with Django, e.g., {{ post.date|date:"F d, Y" }} #}
+                            <h2><a href="#">And this is a<br />
+                            massive headline</a></h2> {# Customize this with your project or key achievement #}
+                            <p>Aenean ornare velit lacus varius enim ullamcorper proin aliquam<br />
+                            facilisis ante sed etiam magna interdum congue. Lorem ipsum dolor<br />
+                            amet nullam sed etiam veroeros.</p> {# Customize project description #}
+                        </header>
+                        {# Use static tag for images #}
+                        <a href="#" class="image main"><img src="{% static 'images/pic01.jpg' %}" alt="" /></a>
+                        <ul class="actions special">
+                            <li><a href="#" class="button large">Full Story</a></li> {# Link to a project detail page #}
+                        </ul>
+                    </article>
+
+                <section class="posts">
+                        <article>
+                            <header>
+                                <span class="date">April 24, 2017</span>
+                                <h2><a href="#">Sed magna<br />
+                                ipsum faucibus</a></h2>
+                            </header>
+                            <a href="#" class="image fit"><img src="{% static 'images/pic02.jpg' %}" alt="" /></a>
+                            <p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis magna etiam.</p>
+                            <ul class="actions special">
+                                <li><a href="#" class="button">Full Story</a></li>
+                            </ul>
+                        </article>
+                        <article>
+                            <header>
+                                <span class="date">April 22, 2017</span>
+                                <h2><a href="#">Primis eget<br />
+                                imperdiet lorem</a></h2>
+                            </header>
+                            <a href="#" class="image fit"><img src="{% static 'images/pic03.jpg' %}" alt="" /></a>
+                            <p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis magna etiam.</p>
+                            <ul class="actions special">
+                                <li><a href="#" class="button">Full Story</a></li>
+                            </ul>
+                        </article>
+                        <article>
+                            <header>
+                                <span class="date">April 18, 2017</span>
+                                <h2><a href="#">Ante mattis<br />
+                                interdum dolor</a></h2>
+                            </header>
+                            <a href="#" class="image fit"><img src="{% static 'images/pic04.jpg' %}" alt="" /></a>
+                            <p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis magna etiam.</p>
+                            <ul class="actions special">
+                                <li><a href="#" class="button">Full Story</a></li>
+                            </ul>
+                        </article>
+                        <article>
+                            <header>
+                                <span class="date">April 14, 2017</span>
+                                <h2><a href="#">Tempus sed<br />
+                                nulla imperdiet</a></h2>
+                            </header>
+                            <a href="#" class="image fit"><img src="{% static 'images/pic05.jpg' %}" alt="" /></a>
+                            <p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis magna etiam.</p>
+                            <ul class="actions special">
+                                <li><a href="#" class="button">Full Story</a></li>
+                            </ul>
+                        </article>
+                        <article>
+                            <header>
+                                <span class="date">April 11, 2017</span>
+                                <h2><a href="#">Odio magna<br />
+                                sed consectetur</a></h2>
+                            </header>
+                            <a href="#" class="image fit"><img src="{% static 'images/pic06.jpg' %}" alt="" /></a>
+                            <p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis magna etiam.</p>
+                            <ul class="actions special">
+                                <li><a href="#" class="button">Full Story</a></li>
+                            </ul>
+                        </article>
+                        <article>
+                            <header>
+                                <span class="date">April 7, 2017</span>
+                                <h2><a href="#">Augue lorem<br />
+                                primis vestibulum</a></h2>
+                            </header>
+                            <a href="#" class="image fit"><img src="{% static 'images/pic07.jpg' %}" alt="" /></a>
+                            <p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis magna etiam.</p>
+                            <ul class="actions special">
+                                <li><a href="#" class="button">Full Story</a></li>
+                            </ul>
+                        </article>
+                    </section>
+
+                <footer>
+                        <div class="pagination">
+                            <a href="#" class="page active">1</a>
+                            <a href="#" class="page">2</a>
+                            <a href="#" class="page">3</a>
+                            <span class="extra">&hellip;</span>
+                            <a href="#" class="page">8</a>
+                            <a href="#" class="page">9</a>
+                            <a href="#" class="page">10</a>
+                            <a href="#" class="next">Next</a>
+                        </div>
+                    </footer>
+
+            </div>
+    </div> {# Close the wrapper div specific to index.html #}
+{% endblock content %}

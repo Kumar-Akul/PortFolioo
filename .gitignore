@@ -1,6 +1,33 @@
+# Python / Virtual Environment
 venv/
-# Elastic Beanstalk Files
-.elasticbeanstalk/*
-!.elasticbeanstalk/*.cfg.yml
-!.elasticbeanstalk/*.global.yml
-staticfiles/
+env/
+.Python
+*.pyc
+__pycache__/
+*.egg-info/
+.coverage
+.tox/
+.pytest_cache/
+
+# Django
+*.log
+local_settings.py
+/db.sqlite3 # Ensure this is at root if your db.sqlite3 is at project root
+/staticfiles/ # This is CRITICAL. The leading slash means ONLY the staticfiles/ at root
+
+# Environment variables
+.env # This is CRITICAL
+
+# AWS Elastic Beanstalk generated files (temp zips, logs)
+.elasticbeanstalk/*.zip
+.elasticbeanstalk/logs/
+.elasticbeanstalk/*.bak
+.elasticbeanstalk/*.tmp
+
+# IDE / Editor specific files
+.idea/
+.vscode/
+*.swp
+*~
+.DS_Store
+Thumbs.db
